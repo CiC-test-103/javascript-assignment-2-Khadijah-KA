@@ -29,7 +29,7 @@ class Account {
 
     deposit(amount){
         this.balance += amount;
-        this.transactionHistory.push({ transactionType: 'Deposit', amount: 500});
+        this.transactionHistory.push({ transactionType: 'Deposit', amount});
         console.log(`Deposited ${amount}. New Balance: ${this.balance}`);
     }
     // Example: withdraw(amount)
@@ -39,8 +39,8 @@ class Account {
     if (amount > this.balance) {
     } else {
         this.balance -= amount;
-        this.transactionHistory.push({transactionType: 'Withdraw', amount: 200});
-        console.log(`Withdraw ${amount}. New Balance: ${this.balance}`);
+        this.transactionHistory.push({transactionType: 'Withdrawal', amount});
+        console.log(`Withdrawal${amount}. New Balance: ${this.balance}`);
 
         }
     }
@@ -51,15 +51,16 @@ class Account {
 // for account recieving { transactionType: 'Received', amount: 300, from: senderName }
     
     transfer(amount, recipientAccount){
-        
+        this.balance -= amount;
         this.transactionHistory.push({
             transactionType: 'Transfer',
-            amount: 300,
-            to: recipientAccount.name
+            amount ,
+            to: recipientAccount.name,
         });
+        recipientAccount.balance += amount;
         recipientAccount.transactionHistory.push({
             transactionType: 'Received',
-            amount: 300,
+            amount ,
             from: this.name
         });
     }
