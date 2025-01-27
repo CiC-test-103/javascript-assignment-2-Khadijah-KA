@@ -8,6 +8,11 @@ class Bank {
     // Add methods here:
     // Example: createAccount(name, initialDeposit)
 
+    createAccount(name, initialDeposit = 0){
+        const account = new Account (name, initialDeposit);
+        this.accounts.push(account);
+        return account;
+    }
 }
 
 // Account Class: Represents a single user's account
@@ -22,16 +27,50 @@ class Account {
     // Example: deposit(amount) 
     // example data to be stored in transactionHistory { transactionType: 'Deposit', amount: 500 }
 
+    deposit(amount){
+        this.balance += amount;
+        this.transactionHistory.push({ transactionType: 'Deposit', amount: 500});
+        console.log(`Deposited ${amount}. New Balance: ${this.balance}`);
+    }
     // Example: withdraw(amount)
     // example data to be stored in transactionHistory { transactionType: 'Withdrawal', amount: 200 }
 
-    // Example: transfer(amount, recipientAccount)
-    // example data to be stored in transactionHistory:
-    // for account sending { transactionType: 'Transfer', amount: 300, to: recipientName }
-    // for account recieving { transactionType: 'Received', amount: 300, from: senderName }
+    withdraw(amount){
+    if (amount > this.balance) {
+    } else {
+        this.balance -= amount;
+        this.transactionHistory.push({transactionType: 'Withdraw', amount: 200});
+        console.log(`Withdraw ${amount}. New Balance: ${this.balance}`);
+
+        }
+    }
+
+// transfer(amount, recipientAccount)
+// example data to be stored in transactionHistory:
+// for account sending { transactionType: 'Transfer', amount: 300, to: recipientName }
+// for account recieving { transactionType: 'Received', amount: 300, from: senderName }
     
+    transfer(amount, recipientAccount){
+        
+        this.transactionHistory.push({
+            transactionType: 'Transfer',
+            amount: 300,
+            to: recipientAccount.name
+        });
+        recipientAccount.transactionHistory.push({
+            transactionType: 'Received',
+            amount: 300,
+            from: this.name
+        });
+    }
+
     // Example: checkBalance()
+    checkBalance(){
+        console.log(this.balance)
+        return this.balance;
+    }
 }
+
 
 //<-------------------------------DO NOT WRITE BELOW THIS LINE------------------------------>
 
